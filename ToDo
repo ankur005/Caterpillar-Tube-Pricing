@@ -1,0 +1,12 @@
+1. Clean up cmerged file
+    1.1 Remove individual components
+    1.2 Look at specs file
+    1.3 Introudce fields no_of_components and total_component_weight
+
+2. Shreyas - Look into MCA/PCA for possible reduction of component categories to certain numerical feature (find if there's any correation between categories)
+
+3. Run randomForest and RFE (Reduced feature elimination) to check what features are worth using
+    3.1 Run on data generated using 1
+
+
+NOTE: First model performance score on Kaggle must be evaluated by end of 2 April 2017.

@@ -1,26 +1,14 @@
 import pandas as pd
 import os
+from Helper import inDir, outDir
 
-def mergeExcelTables(inDir, outDir):
+def mergeExcelTables():
     trainData = pd.read_csv(os.path.join(inDir, "train_set.csv"))
     testData = pd.read_csv(os.path.join(inDir, "test_set.csv"))
     tubeData = pd.read_csv(os.path.join(inDir, "tube.csv"))
     specsData = pd.read_csv(os.path.join(inDir, "specs.csv"))
     bomData = pd.read_csv(os.path.join(inDir, "bill_of_materials.csv"))
     tubeEndFormData = pd.read_csv(os.path.join(inDir, "tube_end_form.csv"))
-    componentData = pd.read_csv(os.path.join(inDir, "components.csv"))
-
-    compTypes = ["adaptor","boss","elbow","float","hfl","nut","other","sleeve","straight","tee","threaded"]
-    types = ["component","connection","end_form"]
-    compTypeDatasets = []
-    typeDatasets = []
-
-    for compType in compTypes:
-        compTypeDatasets.append(os.path.join(inDir, "comp_" + compType + ".csv"))
-
-    for type in types:
-        typeDatasets.append(os.path.join(inDir, "type_" + type + ".csv"))
-
 
     print "Train Set : " + str(len(trainData))
     newTrainData = pd.merge(trainData,specsData, on="tube_assembly_id")
@@ -49,6 +37,6 @@ def mergeExcelTables(inDir, outDir):
     newTestFile = open(os.path.join(outDir, "test_data.csv"),'w')
     newTestData.to_csv(newTestFile)
 
-mergeExcelTables("./Raw Data","./Processed Data")
+mergeExcelTables()
 
 
