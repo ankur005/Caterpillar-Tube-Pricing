@@ -1,3 +1,3 @@
 
 inDir = "./Raw Data"
-outDir = "./Processed Data"
+outDir = "./Model1"
