@@ -1,2 +1,3 @@
 1. Merged all features of tube.csv
 2. Number of components and total component weight (component with missing weight value, weight set to 0)
+3. end_forming if blank, set to 0
