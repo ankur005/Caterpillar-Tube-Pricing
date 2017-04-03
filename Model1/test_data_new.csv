@@ -1,4 +1,4 @@
-,annual_usage,min_order_quantity,bracket_pricing,quantity,diameter,wall,length,num_bends,bend_radius,end_a_1x,end_a_2x,end_x_1x,end_x_2x,num_boss,num_bracket,other,end_a_forming,end_x_forming,no_of_components,total_component_weight
+id,annual_usage,min_order_quantity,bracket_pricing,quantity,diameter,wall,length,num_bends,bend_radius,end_a_1x,end_a_2x,end_x_1x,end_x_2x,num_boss,num_bracket,other,end_a_forming,end_x_forming,no_of_components,total_component_weight
 0,0,0,1,1,12.7,1.65,164,5,38.1,0,0,0,0,0,0,0,0,0,4,0.096
 1,0,0,1,2,12.7,1.65,164,5,38.1,0,0,0,0,0,0,0,0,0,4,0.096
 2,0,0,1,5,12.7,1.65,164,5,38.1,0,0,0,0,0,0,0,0,0,4,0.096
