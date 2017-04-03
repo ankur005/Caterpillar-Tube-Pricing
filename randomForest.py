@@ -20,16 +20,16 @@ j = 0
 for item in predictors:
     rfDict[item] = rf.feature_importances_[j]
     j = j + 1
-#plt.bar(range(len(predictors)), rf.feature_importances_)
-#plt.xticks(range(len(predictors)), predictors, rotation='vertical')
-#plt.show()
+plt.bar(range(len(predictors)), rf.feature_importances_)
+plt.xticks(range(len(predictors)), predictors, rotation='vertical')
+plt.show()
 result = rf.predict(x_test)
 resultDict = {}
 for i in range(0,len(result)):
     resultDict[i+1]=result[i]
-predictedCosts = pd.DataFrame(resultDict.items(), columns=['id','cost'])
-file = open(os.path.join(outDir,'submission_rf.csv'),'w')
-predictedCosts.to_csv(file)
+#predictedCosts = pd.DataFrame(resultDict.items(), columns=['id','cost'])
+#file = open(os.path.join(outDir,'submission_rf.csv'),'w')
+#predictedCosts.to_csv(file)
 
 #print rf.score(x_train, y_train)
 # print rf.predict(x_train)
