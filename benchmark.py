@@ -111,12 +111,16 @@ plst = list(params.items())
 xgtrain = xgb.DMatrix(train, label=label_log)
 xgtest = xgb.DMatrix(test)
 
-
 num_rounds = 2000
 model = xgb.train(plst, xgtrain, num_rounds)
 preds1 = model.predict(xgtest)
 
-num_rounds = 3000
+feat_imp = pd.Series(model.get_fscore()).sort_values(ascending=False)
+feat_imp.plot(kind='bar', title='Feature Importances')
+plt.ylabel('Feature Importance Score')
+plt.show()
+
+'''num_rounds = 3000
 model = xgb.train(plst, xgtrain, num_rounds)
 preds2 = model.predict(xgtest)
 
@@ -146,3 +150,4 @@ preds = (np.expm1( (preds1+preds2+preds4+preds7)/4)+np.power(preds3,16))/2
 
 preds = pd.DataFrame({"id": idx, "cost": preds})
 preds.to_csv('benchmark.csv', index=False)
+'''

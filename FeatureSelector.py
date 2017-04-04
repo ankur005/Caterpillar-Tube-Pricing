@@ -48,6 +48,8 @@ def selectFeatures(filename):
     selected_feat_indices = feature_select.get_support(indices=True)
     data_new_frame.columns = [data_columns[i] for i in selected_feat_indices]
 
+    data_new_frame['cost'] = target
+
     # data_new_frame.merge(target,left_index=True,right_index=True)
     writeToCSV(data_new_frame)
 
