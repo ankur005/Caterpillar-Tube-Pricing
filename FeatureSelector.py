@@ -12,14 +12,17 @@ import Helper
 #         return reader
 
 def selectFeatures(filename):
-    # dataset = readCSV(filename)
-    # data = dataset[:,]
-    dataset = pd.read_csv(filename)
-    # print "Dataset row 1: " + dataset[0]
+
+    dataset = pd.read_csv(filename, index_col=0)
 
     data = dataset
     data = data.drop('cost',axis=1)
-    # del data[['cost']]
+
+    data = data.drop('tube_assembly_id',axis=1)
+    data = data.drop('supplier', axis=1)
+    data = data.drop('quote_date', axis=1)
+
+    data_columns = list(data)
     print "data columns: " + str(list(data))
     print "data shape: " + str(data.shape)
 
@@ -34,13 +37,18 @@ def selectFeatures(filename):
     # data_new = model.transform(data)
     # print "selected data shape: " + data_new.shape
 
-    feature_select = SelectKBest(f_regression(data, target, center=False),k=5)
-    print "Feature scores: " + feature_select.scores_
+    feature_select = SelectKBest(f_regression,k=20)
+
+    # print "Feature scores: " + feature_select.feature_importances
     data_new = feature_select.fit_transform(data,target)
-    print "selected data shape: " + data_new.shape
+    print "selected data shape: " + str(data_new.shape)
 
     data_new_frame = pd.DataFrame(data_new)
-    data_new_frame.merge(target,left_index=True,right_index=True)
+
+    selected_feat_indices = feature_select.get_support(indices=True)
+    data_new_frame.columns = [data_columns[i] for i in selected_feat_indices]
+
+    # data_new_frame.merge(target,left_index=True,right_index=True)
     writeToCSV(data_new_frame)
 
 def writeToCSV(dataframe):
