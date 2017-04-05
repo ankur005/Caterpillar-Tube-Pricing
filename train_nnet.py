@@ -30,7 +30,7 @@ def train(inputFile, numEpochs):
     training_batch = get_dataset(inputFile)
     inputNum = len(training_batch[0][0])
 
-    input_var = T.col('inputs')
+    input_var = T.vector('inputs')
     target_var = T.scalar('output')
     net = init_model(input_var=input_var)
 
@@ -42,20 +42,27 @@ def train(inputFile, numEpochs):
 
     # create parameter update expressions
     params = lasagne.layers.get_all_params(output, trainable=True)
-    updates = lasagne.updates.sgd(loss, params, learning_rate=0.8)
-
+    # updates = lasagne.updates.sgd(loss, params, learning_rate=0.5)
+    updates = lasagne.updates.rmsprop(loss, params, learning_rate=0.01)
     train_fn = theano.function([input_var, target_var], loss, updates=updates, allow_input_downcast=True)
 
-    for epoch in range(numEpochs):
+    epoch = 0
+
+    # for epoch in range(numEpochs):
+    while True:
         loss = 0
         count = 1
 
         for record in training_batch:
-            input = record[0][0:len(record)-2]
-            out = record[len(record)-1]
-            loss = loss + train_fn(np.reshape(input,(len(input),1)), out)
+            input = np.array(record[0][1:len(record[0])])
+            out = record[1]
+            # print "Input: ", input
+            # print "output: ", out
+            loss = loss + train_fn(input, out)
             print "Epoch, Record num: ", (epoch + 1), ", ", count
             count = count + 1
+
+        epoch = epoch + 1
 
         print("Epoch %d: Loss %g" % (epoch + 1, loss / len(training_batch)))
 
@@ -81,10 +88,10 @@ def get_dataset(csvFile):
     outputs = output_df.tolist()
 
     for i in range(len(inputs)):
-        dataset.append((inputs[i],outputs[i]))
+        dataset.append([inputs[i],outputs[i]])
 
     dataset = np.array(dataset)
 
     return dataset
 
-train(Helper.outDir + '/selected_train_data.csv', 1)
+train(Helper.outDir + '/selected_train_data.csv', 20)
